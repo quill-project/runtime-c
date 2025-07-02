@@ -45,6 +45,15 @@
     #define REGION_FREE(p, n) mmap_free(p, n)
 #endif
 
+#if __STDC_VERSION__ >= 202311L
+    // C23 - 'thread_local' is built-in
+#elif __STDC_VERSION__ >= 201112L
+    // C11 - 'thread_local' does not exist, but '_Thread_local' is built-in
+    #define thread_local _Thread_local
+#else
+    #error "Thread local storage must be supported"
+#endif
+
 
 typedef struct quill_slab quill_slab_t;
 
