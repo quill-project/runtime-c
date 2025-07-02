@@ -1,0 +1,8 @@
+{
+    "name": "runtime-c",
+    "authors": ["schwalbe_t"],
+    "desciption": "Implements functionality required by the Quill C backend at runtime.",
+    "type": "library",
+    "backend": "c",
+    "dependencies": []
+}
