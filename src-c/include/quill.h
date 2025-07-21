@@ -238,6 +238,8 @@ extern quill_list_t quill_program_args;
 
 void quill_runtime_init_global(int argc, char **argv);
 void quill_runtime_destruct_global(void);
+void quill_runtime_init_dyn(quill_list_t args);
+void quill_runtime_destruct_dyn(void);
 void quill_runtime_init_thread(void);
 void quill_runtime_destruct_thread(void);
 

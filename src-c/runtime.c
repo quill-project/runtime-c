@@ -29,6 +29,15 @@ void quill_runtime_destruct_global(void) {
     // nothing to do
 }
 
+void quill_runtime_init_dyn(quill_list_t args) {
+    quill_alloc_init_global();
+    quill_program_args = args;
+}
+
+void quill_runtime_destruct_dyn(void) {
+    // nothing to do
+}
+
 void quill_runtime_init_thread(void) {
     quill_alloc_init_thread();
 }
