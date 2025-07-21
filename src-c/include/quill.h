@@ -36,6 +36,12 @@ typedef double quill_float_t;
 typedef uint8_t quill_bool_t;
 
 
+#ifdef _WIN32
+    #define QUILL_DYN_EXPORT __declspec(dllexport)
+#else
+    #define QUILL_DYN_EXPORT
+#endif
+
 #ifdef __STDC_NO_ATOMICS__
     #error "Atomic operations must be supported"
 #else
