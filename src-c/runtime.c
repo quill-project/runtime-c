@@ -26,7 +26,7 @@ void quill_runtime_init_global(int argc, char **argv) {
 }
 
 void quill_runtime_destruct_global(void) {
-    // nothing to do
+    quill_alloc_destruct_global();
 }
 
 void quill_runtime_init_dyn(quill_list_t args) {
@@ -34,14 +34,15 @@ void quill_runtime_init_dyn(quill_list_t args) {
     quill_program_args = args;
 }
 
-void quill_runtime_destruct_dyn(void) {
-    // nothing to do
+void quill_runtime_destruct_dyn(void *unused_allocs) {
+    quill_alloc_migrate_to(unused_allocs);
+    quill_alloc_destruct_global();
 }
 
 void quill_runtime_init_thread(void) {
-    quill_alloc_init_thread();
+    // nothing to do
 }
 
 void quill_runtime_destruct_thread(void) {
-    quill_alloc_destruct_thread();
+    quill_alloc_migrate_to(quill_alloc_get_unused());
 }

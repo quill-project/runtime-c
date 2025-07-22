@@ -122,8 +122,9 @@ void quill_panic(quill_string_t reason);
 
 
 void quill_alloc_init_global(void);
-void quill_alloc_init_thread(void);
-void quill_alloc_destruct_thread(void);
+void quill_alloc_destruct_global(void);
+void *quill_alloc_get_unused(void);
+void quill_alloc_migrate_to(void *to_unused_raw);
 void *quill_alloc_alloc(size_t n);
 void quill_alloc_free(void *alloc);
 
@@ -239,7 +240,7 @@ extern quill_list_t quill_program_args;
 void quill_runtime_init_global(int argc, char **argv);
 void quill_runtime_destruct_global(void);
 void quill_runtime_init_dyn(quill_list_t args);
-void quill_runtime_destruct_dyn(void);
+void quill_runtime_destruct_dyn(void *unused_allocs);
 void quill_runtime_init_thread(void);
 void quill_runtime_destruct_thread(void);
 

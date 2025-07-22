@@ -125,14 +125,22 @@ void quill_alloc_init_global(void) {
     }
 }
 
-void quill_alloc_init_thread(void) {
-    // no setup needed
+void quill_alloc_destruct_global(void) {
+    for(size_t class_i = 0; class_i < CLASS_COUNT; class_i += 1) {
+        quill_class_unused_t *g_unused = &global_unused[class_i];
+        quill_mutex_destroy(&g_unused->lock);
+    }
 }
 
-void quill_alloc_destruct_thread(void) {
+void *quill_alloc_get_unused(void) {
+    return (void *) ((quill_class_unused_t *) global_unused);
+}
+
+void quill_alloc_migrate_to(void *to_unused_raw) {
+    quill_class_unused_t *to_unused = (quill_class_unused_t *) to_unused_raw;
     for(size_t class_i = 0; class_i < CLASS_COUNT; class_i += 1) {
         quill_class_t *c = &classes[class_i];
-        quill_class_unused_t *g_unused = &global_unused[class_i];
+        quill_class_unused_t *g_unused = &to_unused[class_i];
         quill_mutex_lock(&g_unused->lock);
         size_t added_c = 0;
         for(;;) {
