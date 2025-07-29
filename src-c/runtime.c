@@ -26,7 +26,9 @@ void quill_runtime_init_global(int argc, char **argv) {
 }
 
 void quill_runtime_destruct_global(void) {
-    quill_alloc_destruct_global();
+    // We do nothing here since threads may still be running! 
+    // Threads will only be stopped since the process stops, so if we clean
+    // anything up those threads may still attempt to use it.
 }
 
 void quill_runtime_init_dyn(quill_list_t args) {
