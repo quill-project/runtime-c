@@ -125,6 +125,13 @@ void quill_alloc_init_global(void) {
     }
 }
 
+void quill_alloc_destruct_global(void) {
+    for(size_t class_i = 0; class_i < CLASS_COUNT; class_i += 1) {
+        quill_class_unused_t *g_unused = &global_unused[class_i];
+        quill_mutex_destroy(&g_unused->lock);
+    }
+}
+
 void *quill_alloc_get_unused(void) {
     return (void *) ((quill_class_unused_t *) global_unused);
 }
